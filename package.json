@@ -1,0 +1,23 @@
+{
+  "name": "sticky-ocr",
+  "version": "0.0.1",
+  "description": "A convinient OCR that acts like a sticky note on screen.",
+  "main": "main.js",
+  "scripts": {
+    "debug": "NODE_ENV=debug electron .",
+    "start": "electron ."
+  },
+  "keywords": [
+    "ocr",
+    "sticky-ocr",
+    "screenshot"
+  ],
+  "author": "HuoDx",
+  "license": "GPL-3",
+  "devDependencies": {
+    "electron": "^13.1.7"
+  },
+  "dependencies": {
+    "tesseract.js": "^2.1.4"
+  }
+}

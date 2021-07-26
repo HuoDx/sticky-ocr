@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        html,
+        body {
+            padding: 8px;
+            border-radius: 8px;
+            background-color: rgb(227, 148, 148);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            font-size: larger;
+            color: rgb(57, 57, 57);
+        }
+    </style>
+    <meta charset="UTF-8">
+
+    <title>Sticky OCR</title>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <button id="cap">Capture</button> -->
+        <div id="text">
+
+        </div>
+    </div>
+    <script>
+        function isChineseCharacter(value) {
+            return /^[\u4e00-\u9fa5]+$/i.test(value)
+        }
+        function performCap() {
+            window.api.getClipboard().then((imageURL) => {
+                //document.getElementById("image").src = imageURL
+                window.api.performOCR(imageURL).then((r) => { 
+                    let filtered = ''
+                    for(let i = 0;i < r.length; i++) {
+                        if(i > 0 && i < r.length - 1) 
+                            if(r[i] === ' ' && isChineseCharacter(r[i-1]) && isChineseCharacter(r[i+1])) continue
+                        filtered += r[i]
+                    }
+                    document.getElementById('text').innerText = filtered
+                })
+            })
+        }
+        // document.getElementById('cap').addEventListener("click", (event) => {
+        //     performCap()
+        // })
+        window.api.registerAwakeCallback(performCap)
+
+
+    </script>
+</body>
+
+</html>
