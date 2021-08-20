@@ -5,16 +5,41 @@
     <style>
         html,
         body {
-            padding: 8px;
+            padding: 0;
+            margin: 0;
             border-radius: 8px;
             background-color: rgb(227, 148, 148);
         }
 
         .container {
             display: flex;
+            padding: 24px;
             flex-direction: column;
             font-size: larger;
             color: rgb(57, 57, 57);
+        }
+
+        .dashboard {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 8px;
+            /* justify-content: space-around; */
+            height: 48px;
+            width: 100vw;
+            box-shadow: 0px 4px 4px 0px rgb(0 0 0 / 10%);
+            background-color: white;
+        }
+
+        svg{
+            margin: 0 16px 0 16px;
+        }
+
+        .progress-circle {
+            transition: stroke-dashoffset 0.5s;
+            transition: transform 2s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
         }
     </style>
     <meta charset="UTF-8">
@@ -23,27 +48,85 @@
 </head>
 
 <body>
+    <div class="dashboard">
+        <span id="dashboard">Ready.</span>
+        <svg class="progress" width="32" height="32">
+
+            <circle style="z-index: 1024;" id="progress" class="progress-circle" stroke="#002d4d" stroke-width="4"
+                fill="transparent" r="12" cx="16" cy="16" />
+        </svg>
+        <button id="capture" disabled>capture</button>
+    </div>
+
+
+
+    </div>
     <div class="container">
         <!-- <button id="cap">Capture</button> -->
-        <div id="text">
 
+        <div id="text">
         </div>
     </div>
     <script>
+
+        var circle = document.querySelector('#progress')
+        var radius = circle.r.baseVal.value
+        var circumference = radius * 2 * Math.PI
+        circle.style.strokeDasharray = `${circumference} ${circumference}`
+        circle.style.strokeDashoffset = `${circumference}`
+        function setProgress(percent) {
+            let offset = circumference - percent / 100.0 * circumference
+            circle.style.strokeDashoffset = offset
+        }
+        let unsureAnimation = false
+        let deg = 0;
+        function setUnsure(value) {
+            unsureAnimation = value
+            if (!value) {
+                setProgress(0)
+                circle.style.transform = `rotate(${270 * (parseInt(deg/270) + 1)}deg)`
+                deg = 0
+            }
+            else {
+                deg = 0
+                setProgress(75)
+            }
+        }
+        const STEP = 2
+        setInterval((e) => {
+            if (!unsureAnimation) return;
+            circle.style.transform = `rotate(${deg}deg)`
+            deg += 360 / STEP
+        }, 1000 / STEP)
+        setProgress(0)
+
         function performCap() {
-            window.api.getClipboard().then((imageURL) => {
-                //document.getElementById("image").src = imageURL
-                window.api.performOCR(imageURL).then((r) => {
-                    document.getElementById('text').innerText = r
-                })
-            })
+            window.api.capNOCR((r) => document.getElementById('text').innerText = r)
         }
         // document.getElementById('cap').addEventListener("click", (event) => {
         //     performCap()
         // })
         window.api.registerAwakeCallback(performCap)
+        window.api.setDashboardCallback((m) => {
+            console.log(m)
+            document.getElementById('dashboard').innerText = `${m.status}`
+            if(m.unsure !== null && m.unsure === true) { 
+                setUnsure(true)
+                document.getElementById('capture').disabled = true
+            }
+            else {
+                if(unsureAnimation) setUnsure(false)
+                setProgress(m.progress * 100)
+                if(Math.abs(m.progress*100 - 100) < 1e-5) {
+                    setProgress(0)
+                    document.getElementById('dashboard').innerText = 'Ready.'
+                    document.getElementById('capture').disabled = false
+                }
+            }
+            
+        })
 
-
+        document.getElementById('capture').addEventListener('click', performCap)
     </script>
 </body>
 
