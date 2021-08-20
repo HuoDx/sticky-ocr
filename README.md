@@ -33,7 +33,6 @@ Currently I'm thinking a few possible needs:
 
 Anyway, do it the way you feel like doin' it and have fun!
 
-Also feel free to contact me by my email: dev_huodx@163.com
-
+Feel free to contact me.
 
 
