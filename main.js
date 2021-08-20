@@ -36,6 +36,7 @@ function createWindow() {
 
 ipcMain.handle('perform-ocr', async (event, image) => {
     const { data: { text } } = await worker.recognize(image);
+    clipboard.writeText(text)
     return text
 })
 
