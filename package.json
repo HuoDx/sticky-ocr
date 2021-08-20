@@ -6,7 +6,8 @@
   "scripts": {
     "debug": "NODE_ENV=debug electron .",
     "start": "electron .",
-    "build": "electron-packager ./ StickyOCR --platform=darwin --arch=x64 --icon=icon.icns --app-category-type=public.app-category.productivity"
+    "build": "electron-packager ./ StickyOCR --platform=darwin --arch=x64 --icon=icon.icns --app-category-type=public.app-category.productivity",
+    "distribute": "electron-installer-dmg ./StickyOCR-darwin-x64/StickyOCR.app StickyOCR --icon=icon.icns --background=background.png --title='Install Sticky OCR' --overwrite"
     
   },
   "keywords": [

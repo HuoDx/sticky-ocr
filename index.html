@@ -2,6 +2,9 @@
 <html>
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
     <style>
         html,
         body {
@@ -20,6 +23,7 @@
         }
 
         .dashboard {
+            font-family: 'Raleway', sans-serif;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -31,7 +35,7 @@
             background-color: white;
         }
 
-        svg{
+        svg {
             margin: 0 16px 0 16px;
         }
 
@@ -84,7 +88,7 @@
             unsureAnimation = value
             if (!value) {
                 setProgress(0)
-                circle.style.transform = `rotate(${270 * (parseInt(deg/270) + 1)}deg)`
+                circle.style.transform = `rotate(${270 * (parseInt(deg / 270) + 1)}deg)`
                 deg = 0
             }
             else {
@@ -110,20 +114,20 @@
         window.api.setDashboardCallback((m) => {
             console.log(m)
             document.getElementById('dashboard').innerText = `${m.status}`
-            if(m.unsure !== null && m.unsure === true) { 
+            if (m.unsure !== null && m.unsure === true) {
                 setUnsure(true)
                 document.getElementById('capture').disabled = true
             }
             else {
-                if(unsureAnimation) setUnsure(false)
+                if (unsureAnimation) setUnsure(false)
                 setProgress(m.progress * 100)
-                if(Math.abs(m.progress*100 - 100) < 1e-5) {
+                if (Math.abs(m.progress * 100 - 100) < 1e-5) {
                     setProgress(0)
                     document.getElementById('dashboard').innerText = 'Ready.'
                     document.getElementById('capture').disabled = false
                 }
             }
-            
+
         })
 
         document.getElementById('capture').addEventListener('click', performCap)

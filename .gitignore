@@ -119,3 +119,9 @@ dist
 
 lang-data/** 
 *.traineddata
+
+# build files
+StickyOCR*
+**.dmg
+**.app
+.DS_Store
