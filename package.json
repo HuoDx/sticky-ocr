@@ -5,7 +5,9 @@
   "main": "main.js",
   "scripts": {
     "debug": "NODE_ENV=debug electron .",
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-packager ./ StickyOCR --platform=darwin --arch=x64 --icon=icon.icns --app-category-type=public.app-category.productivity"
+    
   },
   "keywords": [
     "ocr",
@@ -15,7 +17,9 @@
   "author": "HuoDx",
   "license": "GPL-3",
   "devDependencies": {
-    "electron": "^13.1.7"
+    "electron": "^13.1.7",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^15.3.0"
   },
   "dependencies": {
     "tesseract.js": "^2.1.4"
