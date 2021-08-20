@@ -59,7 +59,7 @@
             <circle style="z-index: 1024;" id="progress" class="progress-circle" stroke="#002d4d" stroke-width="4"
                 fill="transparent" r="12" cx="16" cy="16" />
         </svg>
-        <button id="capture" disabled>capture</button>
+        <button id="capture">capture</button>
     </div>
 
 
@@ -111,6 +111,7 @@
         //     performCap()
         // })
         window.api.registerAwakeCallback(performCap)
+
         window.api.setDashboardCallback((m) => {
             console.log(m)
             document.getElementById('dashboard').innerText = `${m.status}`
@@ -130,7 +131,7 @@
 
         })
 
-        document.getElementById('capture').addEventListener('click', performCap)
+        document.getElementById('capture').addEventListener('click', (e) => performCap())
     </script>
 </body>
 

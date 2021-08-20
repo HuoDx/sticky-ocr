@@ -9,7 +9,7 @@ const worker = createWorker({
     cachePath: path.join(__dirname, 'lang-data'),
     logger: m => {
         // performs status update to the ipc renderer.
-        console.log(m)
+        // console.log(m)
         window.webContents.send('dashboard-update', m)
     }
 });
@@ -36,6 +36,7 @@ function createWindow() {
     window.on('close', () => {
         window = null;
     })
+    
 }
 
 function isChineseCharacter(value) {
@@ -61,7 +62,9 @@ function filterText(r) {
 }
 
 ipcMain.handle('cap-n-ocr', async (event) => {
+    console.log('cap N\' OCR')
     try {
+        
         execSync('screencapture -i -s -c')
 
         console.log('Image recving.')
@@ -116,7 +119,7 @@ app.whenReady().then(() => { // make sure the panel is ready for worker to sync 
         // activate from sleep
         if (window !== null) window.close()
         createWindow()
-        window.webContents.send('shortcut-awake')
+        setTimeout(()=>window.webContents.send('shortcut-awake'), 500)
     })
 })
 
