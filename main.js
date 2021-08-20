@@ -20,7 +20,7 @@ function createWindow() {
         frame: true,
         hasShadow: true,
         alwaysOnTop: true,
-        icon: path.join(__dirname, 'stickyOCR.ico'),
+        icon: path.join(__dirname, 'icon.icns'),
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -34,10 +34,25 @@ function createWindow() {
     })
 }
 
+function isChineseCharacter(value) {
+    return /[^\x00-\xff]+$/i.test(value)
+}
+function filterText(r) {
+    let filtered = ''
+    for (let i = 0; i < r.length; i++) {
+        if (i > 0 && i < r.length - 1)
+            if (r[i] === ' ' && isChineseCharacter(r[i - 1]) && isChineseCharacter(r[i + 1])) continue
+        filtered += r[i]
+    }
+    return filtered
+}
+
 ipcMain.handle('perform-ocr', async (event, image) => {
     const { data: { text } } = await worker.recognize(image);
-    clipboard.writeText(text)
-    return text
+    let result = filterText(text)
+    console.log(result)
+    clipboard.writeText(result)
+    return result
 })
 
 ipcMain.handle('get-clipboard', async () => {
