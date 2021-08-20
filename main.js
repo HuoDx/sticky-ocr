@@ -37,11 +37,20 @@ function createWindow() {
 function isChineseCharacter(value) {
     return /[^\x00-\xff]+$/i.test(value)
 }
+function isSymbolWithLatterSpace(value) {
+    return /[.;?!,]+/i.test(value)
+}
 function filterText(r) {
     let filtered = ''
     for (let i = 0; i < r.length; i++) {
-        if (i > 0 && i < r.length - 1)
+        if (i > 0 && i < r.length - 1) {
             if (r[i] === ' ' && isChineseCharacter(r[i - 1]) && isChineseCharacter(r[i + 1])) continue
+            if (r[i] === ' ' && isSymbolWithLatterSpace(r[i + 1])) continue
+            if (isSymbolWithLatterSpace(r[i]) && r[i+1] !== ' ') {
+                filtered += r[i] + ' '
+                continue
+            }
+        }
         filtered += r[i]
     }
     return filtered
