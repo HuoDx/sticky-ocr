@@ -11,7 +11,7 @@ Sticky OCR
 
 简而言之：在你屏幕上画个框; 里面所有文字都会复制到你的剪贴板上, 并且以文本形式显示.
 
-Sticky OCR 是一个简单的 OCR 应用程序，它在屏幕上显示的结果就像一张便条。它通过调用 Mac 的原生 `screencapture` 命令进行截图，然后通过 [Tesseract.js]（https://tesseract.projectnaptha.com）进行光学字符识别（OCR）.
+Sticky OCR 是一个简单的 OCR 应用程序，它在屏幕上显示的结果就像一张便条。它通过调用 Mac 的原生 `screencapture` 命令进行截图，然后通过 [Tesseract.js](https://tesseract.projectnaptha.com) 进行光学字符识别（OCR）.
 
 这项目灵感来自我的个人需求 :)
 
@@ -36,4 +36,4 @@ Sticky OCR 是一个简单的 OCR 应用程序，它在屏幕上显示的结果�
 
 总之, 按自己的想法去做吧.
 
-也可以通过我的电子邮件联系我：dev_huodx@163.com
+欢迎通过我的电子邮件联系我.
