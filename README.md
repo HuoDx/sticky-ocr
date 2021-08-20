@@ -18,7 +18,7 @@ And it's a project that was actually inspired by my personal need :)
 
 Download a release version (when there's any) and install it on your Mac. You can close the window anytime you like but don't kill the process using `Cmd+Q` or just kill it somehow. You want it running in the background.
 
-When you feel like you need to extract some info from your screen, press `Option+Shift+S` (lol, Windows users know what this means), then an empty sticky note will pop up on your window; then you'll find your cursor turning into a cross to indicate that you can begin selecting the area you wanna capture.
+When you feel like you need to extract some info from your screen, press `Option+Shift+S` (lol, Windows users know what this means), then an empty sticky note will pop up on your window; then you'll find your cursor turning into a cross to indicate that you can begin selecting the area you wanna capture. When the OCR is done, the text will appear in the sticky note window and also get copied to your clipboard for your convinience.
 
 ## Looks useful? Wanna contribute?
 
